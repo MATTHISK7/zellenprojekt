@@ -9,6 +9,7 @@
       margin: 0;
       background: #f0f4f8;
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
       height: 100vh;
@@ -21,18 +22,30 @@
       border-radius: 12px;
       box-shadow: 0 0 10px rgba(0,0,0,0.2);
     }
+    .info-box {
+      max-width: 700px;
+      margin: 1rem auto;
+      background: white;
+      border-radius: 10px;
+      padding: 1rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      display: none;
+    }
+    .info-box.active {
+      display: block;
+    }
+    .info-box h2 {
+      margin-top: 0;
+    }
   </style>
 </head>
 <body>
   <model-viewer 
+    id="zellenModell"
     src="zelle.glb" 
     alt="3D-Modell einer Zelle"
     camera-controls 
     auto-rotate
-    shadow-intensity="1"
-    exposure="1"
-    ar
-    ar-modes="webxr scene-viewer quick-look">
-  </model-viewer>
-</body>
-</html>
+    shadow-i
+
+
