@@ -37,6 +37,24 @@
     .info-box h2 {
       margin-top: 0;
     }
+    /* Hotspot sichtbar machen */
+    .hotspot {
+      background-color: red; /* Farbe des Hotspots */
+      border: none;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%; /* rund */
+      cursor: pointer;
+      position: absolute;
+    }
+    /* Optional: Info-Icon auf dem Hotspot */
+    .hotspot::before {
+      content: "ℹ️"; /* Info-Symbol */
+      font-size: 18px;
+      position: absolute;
+      top: -2px;
+      left: -2px;
+    }
   </style>
 </head>
 <body>
@@ -46,6 +64,46 @@
     alt="3D-Modell einer Zelle"
     camera-controls 
     auto-rotate
-    shadow-i
+    shadow-intensity="1"
+    exposure="1"
+    ar
+    ar-modes="webxr scene-viewer quick-look">
 
+    <!-- Hotspots -->
+    <button class="hotspot" slot="hotspot-1" 
+            data-position="0.2m 0.1m 0.1m" 
+            data-normal="0m 1m 0m" 
+            data-info="Endoplasmatisches Retikulum: dient der Eiweiß- und Lipidproduktion.">
+    </button>
 
+    <button class="hotspot" slot="hotspot-2" 
+            data-position="-0.1m 0.05m 0.15m" 
+            data-normal="0m 1m 0m" 
+            data-info="Mitochondrium: Kraftwerk der Zelle, erzeugt Energie.">
+    </button>
+
+    <button class="hotspot" slot="hotspot-3" 
+            data-position="0m 0.1m -0.1m" 
+            data-normal="0m 1m 0m" 
+            data-info="Zellkern: enthält die DNA und steuert die Zellaktivitäten.">
+    </button>
+
+  </model-viewer>
+
+  <!-- Info-Box -->
+  <div id="infoBox" class="info-box"></div>
+
+  <script>
+    const infoBox = document.getElementById('infoBox');
+    const hotspots = document.querySelectorAll('.hotspot');
+
+    hotspots.forEach(button => {
+      button.addEventListener('click', () => {
+        const info = button.dataset.info;
+        infoBox.innerHTML = `<h2>Info</h2><p>${info}</p>`;
+        infoBox.classList.add('active');
+      });
+    });
+  </script>
+</body>
+</html>
