@@ -5,35 +5,61 @@
   <title>Interaktive Zelle</title>
   <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
   <style>
+    /* --- Grunddesign --- */
     body {
       margin: 0;
-      background: #eaf2fa;
+      background: linear-gradient(135deg, #dbeafe, #eff6ff);
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       height: 100vh;
-      font-family: sans-serif;
+      font-family: "Segoe UI", Roboto, sans-serif;
+      color: #333;
+    }
+
+    h1 {
+      margin-bottom: 0.5rem;
+      font-size: 1.8rem;
+      color: #1a73e8;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+    }
+
+    p.subtitle {
+      margin-top: 0;
+      margin-bottom: 1rem;
+      color: #555;
+      font-size: 1rem;
     }
 
     model-viewer {
-      width: 80vw;
-      height: 80vh;
+      width: 85vw;
+      height: 75vh;
       background-color: #ffffff;
-      border-radius: 12px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+      border-radius: 16px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+      transition: box-shadow 0.3s ease;
     }
 
+    model-viewer:hover {
+      box-shadow: 0 8px 25px rgba(26,115,232,0.3);
+    }
+
+    /* --- Info-Box --- */
     .info-box {
-      max-width: 700px;
-      margin: 1rem auto;
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
       background: white;
-      border-radius: 10px;
-      padding: 1rem;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      border-radius: 12px;
+      padding: 1rem 1.5rem;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.25);
       display: none;
       text-align: center;
       animation: fadeIn 0.3s ease;
+      max-width: 80%;
+      z-index: 10;
     }
 
     .info-box.active {
@@ -41,35 +67,51 @@
     }
 
     .info-box h2 {
-      margin-top: 0;
+      margin: 0 0 0.5rem 0;
       color: #1a73e8;
     }
 
-    /* Hotspot Style */
+    .info-box p {
+      margin: 0;
+      color: #444;
+      font-size: 1rem;
+    }
+
+    /* --- Hotspots --- */
     .hotspot {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
       background: radial-gradient(circle, #4da3ff 0%, #1a73e8 60%, #0b4ec0 100%);
       border: 2px solid white;
-      width: 22px;
-      height: 22px;
-      border-radius: 50%;
-      box-shadow: 0 0 10px rgba(26, 115, 232, 0.6);
+      box-shadow: 0 0 10px rgba(26,115,232,0.7);
       cursor: pointer;
       position: absolute;
-      transition: transform 0.2s, box-shadow 0.2s;
+      animation: pulse 2s infinite;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
 
     .hotspot:hover {
-      transform: scale(1.2);
-      box-shadow: 0 0 15px rgba(26, 115, 232, 0.9);
+      transform: scale(1.25);
+      box-shadow: 0 0 20px rgba(26,115,232,0.9);
+    }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 0 5px rgba(26,115,232,0.6); }
+      50% { box-shadow: 0 0 15px rgba(26,115,232,1); }
+      100% { box-shadow: 0 0 5px rgba(26,115,232,0.6); }
     }
 
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
+      from { opacity: 0; transform: translate(-50%, 10px); }
+      to { opacity: 1; transform: translate(-50%, 0); }
     }
   </style>
 </head>
 <body>
+  <h1>Interaktive 3D-Zelle</h1>
+  <p class="subtitle">Klicke auf die Punkte, um mehr über die Zellteile zu erfahren!</p>
+
   <model-viewer 
     id="zellenModell"
     src="zelle.glb" 
@@ -85,13 +127,13 @@
     <button class="hotspot" slot="hotspot-1" 
             data-position="0.2m 0.1m 0.1m" 
             data-normal="0m 1m 0m" 
-            data-info="raues Endoplasmatisches Retikulum: Dient der Eiweiß- und Lipidproduktion.">
+            data-info="Raues Endoplasmatisches Retikulum: Dient der Eiweiß- und Lipidproduktion.">
     </button>
 
     <button class="hotspot" slot="hotspot-2" 
             data-position="-0.1m 0.05m 0.50m" 
             data-normal="0m 1m 0m" 
-            data-info="Mitochondrium: Das Kraftwerk der Zelle, erzeugt Energie.">
+            data-info="Glattes Endoplasmatisches Retikulum: Baut Fette ab und speichert Kalzium.">
     </button>
 
   </model-viewer>
@@ -108,13 +150,13 @@
         const info = button.dataset.info;
         infoBox.innerHTML = `<h2>Info</h2><p>${info}</p>`;
         infoBox.classList.add('active');
+
+        // Info-Box nach 5 Sekunden automatisch ausblenden
+        setTimeout(() => {
+          infoBox.classList.remove('active');
+        }, 5000);
       });
     });
   </script>
 </body>
 </html>
-
-
-
-
-
