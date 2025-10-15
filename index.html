@@ -7,7 +7,7 @@
   <style>
     body {
       margin: 0;
-      background: #f0f4f8;
+      background: #eaf2fa;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -15,13 +15,15 @@
       height: 100vh;
       font-family: sans-serif;
     }
+
     model-viewer {
       width: 80vw;
       height: 80vh;
       background-color: #ffffff;
       border-radius: 12px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
     }
+
     .info-box {
       max-width: 700px;
       margin: 1rem auto;
@@ -30,30 +32,40 @@
       padding: 1rem;
       box-shadow: 0 2px 8px rgba(0,0,0,0.2);
       display: none;
+      text-align: center;
+      animation: fadeIn 0.3s ease;
     }
+
     .info-box.active {
       display: block;
     }
+
     .info-box h2 {
       margin-top: 0;
+      color: #1a73e8;
     }
-    /* Hotspot sichtbar machen */
+
+    /* Hotspot Style */
     .hotspot {
-      background-color: red; /* Farbe des Hotspots */
-      border: none;
-      width: 20px;
-      height: 20px;
-      border-radius: 50%; /* rund */
+      background: radial-gradient(circle, #4da3ff 0%, #1a73e8 60%, #0b4ec0 100%);
+      border: 2px solid white;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      box-shadow: 0 0 10px rgba(26, 115, 232, 0.6);
       cursor: pointer;
       position: absolute;
+      transition: transform 0.2s, box-shadow 0.2s;
     }
-    /* Optional: Info-Icon auf dem Hotspot */
-    .hotspot::before {
-      content: "ℹ️"; /* Info-Symbol */
-      font-size: 18px;
-      position: absolute;
-      top: -2px;
-      left: -2px;
+
+    .hotspot:hover {
+      transform: scale(1.2);
+      box-shadow: 0 0 15px rgba(26, 115, 232, 0.9);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
@@ -73,15 +85,14 @@
     <button class="hotspot" slot="hotspot-1" 
             data-position="0.2m 0.1m 0.1m" 
             data-normal="0m 1m 0m" 
-            data-info="Endoplasmatisches Retikulum: dient der Eiweiß- und Lipidproduktion.">
+            data-info="Endoplasmatisches Retikulum: Dient der Eiweiß- und Lipidproduktion.">
     </button>
 
     <button class="hotspot" slot="hotspot-2" 
-            data-position="-0.1m 1.05m 0.15m" 
+            data-position="-0.1m 0.05m 0.15m" 
             data-normal="0m 1m 0m" 
-            data-info="Mitochondrium: Kraftwerk der Zelle, erzeugt Energie.">
+            data-info="Mitochondrium: Das Kraftwerk der Zelle, erzeugt Energie.">
     </button>
-
 
   </model-viewer>
 
@@ -102,4 +113,5 @@
   </script>
 </body>
 </html>
+
 
