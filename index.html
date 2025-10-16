@@ -16,6 +16,7 @@
       height: 100vh;
       font-family: "Segoe UI", Roboto, sans-serif;
       color: #333;
+      overflow: hidden;
     }
 
     h1 {
@@ -34,7 +35,7 @@
 
     model-viewer {
       width: 85vw;
-      height: 75vh;
+      height: 70vh;
       background-color: #ffffff;
       border-radius: 16px;
       box-shadow: 0 6px 20px rgba(0,0,0,0.15);
@@ -48,7 +49,7 @@
     /* --- Info-Box --- */
     .info-box {
       position: fixed;
-      bottom: 20px;
+      bottom: 60px;
       left: 50%;
       transform: translateX(-50%);
       background: white;
@@ -106,6 +107,18 @@
       from { opacity: 0; transform: translate(-50%, 10px); }
       to { opacity: 1; transform: translate(-50%, 0); }
     }
+
+    /* --- Namen unten --- */
+    .names {
+      position: fixed;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 1rem;
+      color: #1a73e8;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+    }
   </style>
 </head>
 <body>
@@ -141,6 +154,9 @@
   <!-- Info-Box -->
   <div id="infoBox" class="info-box"></div>
 
+  <!-- Namen unten -->
+  <div class="names">Matthis • Ebian • Julian</div>
+
   <script>
     const infoBox = document.getElementById('infoBox');
     const hotspots = document.querySelectorAll('.hotspot');
@@ -151,7 +167,7 @@
         infoBox.innerHTML = `<h2>Info</h2><p>${info}</p>`;
         infoBox.classList.add('active');
 
-        // Info-Box nach 5 Sekunden automatisch ausblenden
+        // Info-Box nach 10 Sekunden automatisch ausblenden
         setTimeout(() => {
           infoBox.classList.remove('active');
         }, 10000);
@@ -160,7 +176,3 @@
   </script>
 </body>
 </html>
-
-
-
-
